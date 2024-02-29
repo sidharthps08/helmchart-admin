@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /fe
+        pathType: Prefix
+        backend:
+          service:
+            name: myapp
+            port:
+              number: {{ .Values.traefik.port }}
+      - path: /admin
+        pathType: Prefix
+        backend:
+          service:
+            name: myapp2
+            port:
+              number: {{ .Values.traefik.port }}
+
